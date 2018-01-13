@@ -1,0 +1,178 @@
+fileFormatVersion: 2
+guid: 03b69d5c81998f042ba6b3d39783e6c1
+timeCreated: 1515180170
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: field_plane_a
+    100004: player_a_L_Lib
+    100006: goal
+    100008: field_goal
+    100010: border
+    100012: field_border
+    100014: field_border_corner
+    100016: field_barrier
+    100018: field_goal_net
+    100020: field_goal_collision
+    100022: field_border_collision
+    100024: field_bumper
+    100026: field_curve
+    100028: field_barrier_curved
+    100030: field_curve_detail
+    100032: trash
+    100034: field_plane_ramp
+    400000: //RootNode
+    400002: field_plane_a
+    400004: player_a_L_Lib
+    400006: goal
+    400008: field_goal
+    400010: border
+    400012: field_border
+    400014: field_border_corner
+    400016: field_barrier
+    400018: field_goal_net
+    400020: field_goal_collision
+    400022: field_border_collision
+    400024: field_bumper
+    400026: field_curve
+    400028: field_barrier_curved
+    400030: field_curve_detail
+    400032: trash
+    400034: field_plane_ramp
+    2100000: No Name
+    2100002: Material
+    2300000: field_plane_a
+    2300002: player_a_L_Lib
+    2300004: //RootNode
+    2300006: goal
+    2300008: field_goal
+    2300010: border
+    2300012: field_border
+    2300014: field_border_corner
+    2300016: field_barrier
+    2300018: field_goal_net
+    2300020: field_goal_collision
+    2300022: field_border_collision
+    2300024: field_bumper
+    2300026: field_curve
+    2300028: field_barrier_curved
+    2300030: field_curve_detail
+    2300032: trash
+    2300034: field_plane_ramp
+    3300000: field_plane_a
+    3300002: player_a_L_Lib
+    3300004: //RootNode
+    3300006: goal
+    3300008: field_goal
+    3300010: border
+    3300012: field_border
+    3300014: field_border_corner
+    3300016: field_barrier
+    3300018: field_goal_net
+    3300020: field_goal_collision
+    3300022: field_border_collision
+    3300024: field_bumper
+    3300026: field_curve
+    3300028: field_barrier_curved
+    3300030: field_curve_detail
+    3300032: trash
+    3300034: field_plane_ramp
+    4300000: field_plane_a
+    4300002: player_a_L_Lib
+    4300004: goal
+    4300006: field_goal
+    4300008: border
+    4300010: field_border
+    4300012: field_border_corner
+    4300014: field_barrier
+    4300016: field_goal_net
+    4300018: field_goal_collision
+    4300020: field_border_collision
+    4300022: field_bumper
+    4300024: field_curve
+    4300026: field_curve_detail
+    4300028: trash
+    4300030: field_barrier_curved
+    4300032: field_plane_ramp
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
