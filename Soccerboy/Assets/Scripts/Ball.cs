@@ -22,20 +22,39 @@ public class Ball : MonoBehaviour {
 	
 	void Update () {
 
-        //Moverse de acuerdo a la velocidad
-        transform.position = transform.position + velocity * Time.deltaTime;
-
-        //Manejar colisión
-        ManageCollision();
+        //Recopilar datos del suelo
+        RaycastHit hit;
+        //bool thereIsFloor = Physics.SphereCast(transform.position, sphereCollider.radius * 0.999f, Vector3.down, out hit, 10f, floorLayerMask);
+        bool thereIsFloor = Physics.Raycast(transform.position + Vector3.up * sphereCollider.radius, Vector3.down, out hit, 10f, floorLayerMask);
 
         //Si no hay suelo, caer
-        if(Physics.Raycast(transform.position + Vector3.up * sphereCollider.radius, Vector3.down, 10f, floorLayerMask) == false) {
+        if (thereIsFloor == false) {
 
             velocity = velocity + Vector3.down * Time.deltaTime * 16f;
 
             //Reiniciar la partida despues de 1 segundo
             StartCoroutine(FindObjectOfType<PlayManager>().RestartPlayAfter(1f));
+        } 
+        
+        //Si hay suelo
+        else {
+
+            //Disminuir la velocidad
+            Deacelerate(2f);
+
+            //Pegarse a el
+            transform.position = new Vector3(transform.position.x, hit.point.y + sphereCollider.radius, transform.position.z);
+
+            //Darle velocidad de acuerdo a la pendiente
+            Vector3 velAdd = Vector3Util.NoY(hit.normal);
+            velocity = velocity + velAdd * Time.deltaTime * 16f;
         }
+
+        //Moverse de acuerdo a la velocidad
+        transform.position = transform.position + velocity * Time.deltaTime;
+
+        //Manejar colisión
+        ManageCollision();
 
         //Guardar esta posicion como la ultima para el siguiente frame
         previousPosition = transform.position;
@@ -66,8 +85,13 @@ public class Ball : MonoBehaviour {
 
     }
 
-    public void Deacelerate() {
-        float newMagnitude = velocity.magnitude - 12f * Time.deltaTime;
+    public void AddForce(Vector3 force) {
+        velocity = velocity + force;
+    }
+
+    public void Deacelerate(float factor) {
+        float newMagnitude = velocity.magnitude - factor * Time.deltaTime;
+        newMagnitude = Mathf.Clamp(newMagnitude, 0f, float.MaxValue);
         velocity = velocity.normalized * newMagnitude;
     }
 
@@ -78,18 +102,6 @@ public class Ball : MonoBehaviour {
             Gizmos.DrawRay(i.point, i.normal);
         }
     }
-
-    /*private void OnCollisionEnter(Collision collision) {
-        //Debug.Log(collision.contacts[0].normal);
-
-        foreach (ContactPoint cp in collision.contacts) {
-            Vector3 reflectedVector = Vector3.Reflect(velocity, cp.normal);
-            velocity = new Vector3(reflectedVector.x, velocity.y, reflectedVector.z);
-        }
-
-        //Vector3 reflectedVector = Vector3.Reflect(velocity, collision.contacts[0].normal);
-        //velocity = new Vector3(reflectedVector.x, velocity.y, reflectedVector.z);
-    }*/
 
     List<HitInfo> hitInfos;
 

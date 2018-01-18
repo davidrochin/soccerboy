@@ -6,6 +6,7 @@ public class BallLauncher : MonoBehaviour {
 
     [Range(0f, 1f)]
     public float forceMultiplier = 2f;
+    public float maxForce = 10f;
     public GameObject launchArrow;
     public bool debugTouch = false;
 
@@ -56,7 +57,7 @@ public class BallLauncher : MonoBehaviour {
             //Mostrar la flecha de lanzamiento
             launchArrow.SetActive(true);
             launchArrow.transform.position = transform.position + Vector3.up * 0.05f;
-            launchArrow.transform.localScale = new Vector3(1f, 1f, (currentTouchPos - startingTouchPos).magnitude);
+            launchArrow.transform.localScale = new Vector3(1f, 1f, Mathf.Clamp((currentTouchPos - startingTouchPos).magnitude, 0f, maxForce));
             launchArrow.transform.LookAt(transform.position + currentTouchPos - startingTouchPos);
             //launchArrow.transform.localRotation = Quaternion.Euler(new Vector3(0f, launchArrow.transform.localRotation.y, launchArrow.transform.localRotation.z));
         } else {
@@ -67,7 +68,7 @@ public class BallLauncher : MonoBehaviour {
         //Revisar si se levantó el clic de la pantalla
         if (Input.GetMouseButtonUp(0)) {
             touchFinalDelta = TouchUtil.TouchOnPlane(launcherPlane) - startingTouchPos;
-            Launch(touchFinalDelta.normalized, touchFinalDelta.magnitude);
+            Launch(touchFinalDelta.normalized, Mathf.Clamp(touchFinalDelta.magnitude, 0f, maxForce));
             FindObjectOfType<PlayManager>().playInProgress = true;
             this.enabled = false;
         }

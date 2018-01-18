@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EnemySlider : MonoBehaviour {
 
-    [Range(1f, 6f)]
+    [Range(0.01f, 6f)]
     public float slideExtent = 3f;
 
-    [Range(1f, 5f)]
+    [Range(1f, 10f)]
     public float moveSpeed = 2f;
 
     public LayerMask ballLayerMask;

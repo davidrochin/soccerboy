@@ -23,6 +23,14 @@ ModelImporter:
     100030: field_curve_detail
     100032: trash
     100034: field_plane_ramp
+    100036: field_blower
+    100038: field_launcher
+    100040: field_launcher_collision
+    100042: field_pyramid
+    100044: field_curve_ramp
+    100046: field_pyramid.001
+    100048: field_accelerator
+    100050: field_cone
     400000: //RootNode
     400002: field_plane_a
     400004: player_a_L_Lib
@@ -41,6 +49,14 @@ ModelImporter:
     400030: field_curve_detail
     400032: trash
     400034: field_plane_ramp
+    400036: field_blower
+    400038: field_launcher
+    400040: field_launcher_collision
+    400042: field_pyramid
+    400044: field_curve_ramp
+    400046: field_pyramid.001
+    400048: field_accelerator
+    400050: field_cone
     2100000: No Name
     2100002: Material
     2300000: field_plane_a
@@ -61,6 +77,14 @@ ModelImporter:
     2300030: field_curve_detail
     2300032: trash
     2300034: field_plane_ramp
+    2300036: field_blower
+    2300038: field_launcher
+    2300040: field_launcher_collision
+    2300042: field_pyramid
+    2300044: field_curve_ramp
+    2300046: field_pyramid.001
+    2300048: field_accelerator
+    2300050: field_cone
     3300000: field_plane_a
     3300002: player_a_L_Lib
     3300004: //RootNode
@@ -79,6 +103,14 @@ ModelImporter:
     3300030: field_curve_detail
     3300032: trash
     3300034: field_plane_ramp
+    3300036: field_blower
+    3300038: field_launcher
+    3300040: field_launcher_collision
+    3300042: field_pyramid
+    3300044: field_curve_ramp
+    3300046: field_pyramid.001
+    3300048: field_accelerator
+    3300050: field_cone
     4300000: field_plane_a
     4300002: player_a_L_Lib
     4300004: goal
@@ -96,6 +128,14 @@ ModelImporter:
     4300028: trash
     4300030: field_barrier_curved
     4300032: field_plane_ramp
+    4300034: field_blower
+    4300036: field_launcher_collision
+    4300038: field_launcher
+    4300040: field_pyramid
+    4300042: field_curve_ramp
+    4300044: field_pyramid.001
+    4300046: field_accelerator
+    4300048: field_cone
   externalObjects: {}
   materials:
     importMaterials: 1

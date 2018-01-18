@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceMultiplier: 1
+  maxForce: 12
   launchArrow: {fileID: 1784590848107182, guid: a5a8dd7e9314b8f478de6e95c66be954,
     type: 2}
   debugTouch: 0

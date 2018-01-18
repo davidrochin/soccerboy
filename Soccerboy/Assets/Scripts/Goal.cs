@@ -25,7 +25,7 @@ public class Goal : MonoBehaviour {
         Collider[] colliders = Physics.OverlapBox(transform.position + goalDetectionOffset, goalDetectionSize * 0.5f, Quaternion.identity, ballLayerMask);
         if (colliders.Length > 0 && colliders[0].gameObject == ball.gameObject) {
             FindObjectOfType<GoalText>().Show();
-            ball.Deacelerate();
+            ball.Deacelerate(12f);
         }
 
 	}
