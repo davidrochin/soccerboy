@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CustomEditor(typeof(RotateCamera))]
-class ConnectLineHandleExampleScript : Editor
+class CameraRotationDraw : Editor
 {
     void OnSceneGUI()
     {
