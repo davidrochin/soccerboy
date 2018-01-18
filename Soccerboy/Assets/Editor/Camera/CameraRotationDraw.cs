@@ -8,6 +8,6 @@ class ConnectLineHandleExampleScript : Editor
     {
         RotateCamera rotateCamera = target as RotateCamera;
         Handles.color = Color.blue;
-        Handles.DrawWireArc(rotateCamera.transform.position, rotateCamera.transform.up, Camera.main.transform.localPosition, rotateCamera.changeAngle, Vector3.Distance(rotateCamera.transform.position, Camera.main.transform.position));
+        Handles.DrawWireArc(rotateCamera.transform.position, rotateCamera.transform.up, Camera.main.transform.localPosition, rotateCamera.AddAngle * rotateCamera.Turns, Vector3.Distance(rotateCamera.transform.position, Camera.main.transform.position));
     }
 }

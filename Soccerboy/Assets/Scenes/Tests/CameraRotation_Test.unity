@@ -710,7 +710,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b1452055f2d11447a05a661a516da81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeAngle: 90
+  AddAngle: 90
+  Turns: 2
 --- !u!1001 &1241602388
 Prefab:
   m_ObjectHideFlags: 0
