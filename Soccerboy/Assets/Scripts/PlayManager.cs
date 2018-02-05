@@ -5,12 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class PlayManager : MonoBehaviour {
 
-    public Vector3 ballStartingPos;
+    public PlayMode mode = PlayMode.Play;
     public bool playInProgress;
 
     public PrefabReferenceGroup prefabReferences;
+    public Vector3 sceneCenter;
 
-    float ballRadius = 0.4457389f;
+    [Header("Debug")]
+    public bool showDebugButtons = false;
 
     Ball ball;
 
@@ -18,22 +20,33 @@ public class PlayManager : MonoBehaviour {
 
         //Aparecer la camara si no hay
         if(Camera.main == null) {
-            GameObject prefab = Resources.Load("Prefabs/camera", typeof(GameObject)) as GameObject;
-            Instantiate(prefab);
+            Camera cam = Instantiate(prefabReferences.cameraPrefab).GetComponent<Camera>();
+
+            //Ajustar la camara al centro de los objetos de la escena
+            Bounds playBounds = new Bounds(); MeshRenderer[] meshRenderers = FindObjectsOfType<MeshRenderer>();
+            foreach (MeshRenderer mr in meshRenderers) { playBounds.Encapsulate(mr.bounds); }
+            sceneCenter = playBounds.center;
+            Debug.Log("Se encontraron " + meshRenderers.Length + " mesh renderers y el centro es " + sceneCenter);
+
+            cam.transform.rotation = Quaternion.Euler(new Vector3(38.91f, -45f, 0f));
+            cam.transform.position = playBounds.center + cam.transform.forward * -1f * 10f;
         }
 
-        //Aparecer el Canvas si no hay
+        //Aparecer el Canvas y su menú de juego si no hay
         if(FindObjectOfType<Canvas>() == null) {
-            GameObject prefab = Resources.Load("Prefabs/play_canvas", typeof(GameObject)) as GameObject;
-            Instantiate(prefab);
+            GameObject canvas = Instantiate(prefabReferences.canvasPrefab);
+            Instantiate(prefabReferences.playMenu, canvas.transform, false);
         }
-
-        //Instanciar la pelota
-        ball = Instantiate(prefabReferences.ballPrefab, ballStartingPos + Vector3.up * ballRadius, Quaternion.identity).GetComponent<Ball>();
 
 	}
-	
-	void Update () {
+
+    void Start() {
+
+        ball = FindObjectOfType<Ball>();
+
+    }
+
+    void Update () {
 		
 	}
 
@@ -50,37 +63,43 @@ public class PlayManager : MonoBehaviour {
 
     void OnGUI() {
 
-        //Dibujar el boton para reiniciar la jugada
-        if(GUILayout.Button("Reiniciar ejemplo")) {
-            RestartPlay();
-        }
+        if (showDebugButtons) {
+            //Dibujar el boton para reiniciar la jugada
+            if (GUILayout.Button("Reiniciar ejemplo")) {
+                RestartPlay();
+            }
 
-        //Dibujar los botones para para avanzar y retroceder de ejemplos
-        if(SceneManager.GetActiveScene().buildIndex > 0) {
-            if(GUILayout.Button("<< Ejemplo anterior")) {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+            //Dibujar los botones para para avanzar y retroceder de ejemplos
+            if (SceneManager.GetActiveScene().buildIndex > 0) {
+                if (GUILayout.Button("<< Ejemplo anterior")) {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+                }
+            }
+
+            if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1) {
+                if (GUILayout.Button(">> Ejemplo siguiente")) {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                }
             }
         }
 
-        if(SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1) {
-            if(GUILayout.Button(">> Ejemplo siguiente")) {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            }
-        }
     }
 
-    void OnDrawGizmos() {
-
-        //Dibujar el spawn de la pelota
-        Gizmos.DrawSphere(Vector3Util.NoY(ballStartingPos) + Vector3.up * ballRadius, ballRadius);
-    }
+    public enum PlayMode { Play, Edit, Test }
 
 }
 
 [System.Serializable]
 public class PrefabReferenceGroup {
 
+    [Header("UI")]
+    public GameObject canvasPrefab;
+    public GameObject mainMenu;
+    public GameObject playMenu;
+    public GameObject editMenu;
+
+    [Header("Play")]
+    public GameObject cameraPrefab;
     public GameObject ballPrefab;
     public GameObject goalPrefab;
-
 }

@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallLauncher : MonoBehaviour {
+public class BallKicker : MonoBehaviour {
 
     [Range(0f, 1f)]
     public float forceMultiplier = 2f;
@@ -19,6 +20,8 @@ public class BallLauncher : MonoBehaviour {
 
     Plane launcherPlane;
 
+    //Eventos
+    public event Action OnKick;
 
 	void Awake () {
         collider = GetComponent<Collider>();
@@ -75,7 +78,7 @@ public class BallLauncher : MonoBehaviour {
 	}
 
     public void Launch(Vector3 direction, float force) {
-        //Debug.Log(direction + ", " + force + ", " + forceMultiplier);
+        if (OnKick != null) { OnKick(); }
         ball.velocity = direction * force * forceMultiplier;
         
     }

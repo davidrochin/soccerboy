@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class Vector3Util {
 
-    public static Vector3 Shift(Vector3 vector, Vector3 direction) {
-        return Vector3.Cross(vector, direction);
+    public static Vector3 QuadraticInterpolation(Vector3 a, Vector3 b, Vector3 c, float t) {
+        Vector3 p0 = Vector3.Lerp(a, b, t);
+        Vector3 p1 = Vector3.Lerp(b, c, t);
+        return Vector3.Lerp(p0, p1, t);
+    }
+
+    public static Vector3 CubicInterpolation(Vector3 a, Vector3 b, Vector3 c, Vector3 d, float t) {
+        Vector3 p0 = QuadraticInterpolation(a, b, c, t);
+        Vector3 p1 = QuadraticInterpolation(b, c, d, t);
+        return Vector3.Lerp(p0, p1, t);
     }
 
     public static Vector3 RotateAroundPoint(Vector3 point, Vector3 pivot, Quaternion rotation) {

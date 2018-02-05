@@ -2,15 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExtensionMethods : MonoBehaviour {
+public static class ExtensionMethods {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public static Vector3 NoY(this Vector3 vector) {
+        return new Vector3(vector.x, 0f, vector.z);
+    }
 }

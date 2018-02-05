@@ -51,9 +51,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32497ab841b8b834a9e199d0e8aa8e1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballStartingPos: {x: 0, y: 0, z: -2.46}
+  mode: 0
+  playInProgress: 0
   prefabReferences:
+    canvasPrefab: {fileID: 1095574240003462, guid: 01d8f80e6a82bba4aa5c67643c7d96e8,
+      type: 2}
+    mainMenu: {fileID: 0}
+    playMenu: {fileID: 1345111192331392, guid: abba588c52d9692498d5c80407c33286, type: 2}
+    editMenu: {fileID: 0}
+    cameraPrefab: {fileID: 1233699698678850, guid: 2f44198ff06c4de49b67cefe3a547cad,
+      type: 2}
     ballPrefab: {fileID: 1855676876408714, guid: d78df4f6c336b784ba405c426f14b78d,
       type: 2}
     goalPrefab: {fileID: 1813622639123710, guid: 125fbfab2bb069c40b180c6d87346cd8,
       type: 2}
+  sceneCenter: {x: 0, y: 0, z: 0}
+  showDebugButtons: 1

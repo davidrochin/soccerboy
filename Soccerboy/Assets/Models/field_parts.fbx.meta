@@ -31,6 +31,8 @@ ModelImporter:
     100046: field_pyramid.001
     100048: field_accelerator
     100050: field_cone
+    100052: field_ball_spawner
+    100054: field_plane_test
     400000: //RootNode
     400002: field_plane_a
     400004: player_a_L_Lib
@@ -57,6 +59,8 @@ ModelImporter:
     400046: field_pyramid.001
     400048: field_accelerator
     400050: field_cone
+    400052: field_ball_spawner
+    400054: field_plane_test
     2100000: No Name
     2100002: Material
     2300000: field_plane_a
@@ -85,6 +89,8 @@ ModelImporter:
     2300046: field_pyramid.001
     2300048: field_accelerator
     2300050: field_cone
+    2300052: field_ball_spawner
+    2300054: field_plane_test
     3300000: field_plane_a
     3300002: player_a_L_Lib
     3300004: //RootNode
@@ -111,6 +117,8 @@ ModelImporter:
     3300046: field_pyramid.001
     3300048: field_accelerator
     3300050: field_cone
+    3300052: field_ball_spawner
+    3300054: field_plane_test
     4300000: field_plane_a
     4300002: player_a_L_Lib
     4300004: goal
@@ -136,6 +144,8 @@ ModelImporter:
     4300044: field_pyramid.001
     4300046: field_accelerator
     4300048: field_cone
+    4300050: field_ball_spawner
+    4300052: field_plane_test
   externalObjects: {}
   materials:
     importMaterials: 1

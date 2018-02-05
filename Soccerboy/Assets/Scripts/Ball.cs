@@ -1,16 +1,26 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SphereCollider))]
 public class Ball : MonoBehaviour {
 
     public Vector3 velocity;
     public LayerMask floorLayerMask;
     public LayerMask wallLayerMask;
 
+    [HideInInspector] public Vector3 bottom {
+        get { return transform.position + Vector3.down * sphereCollider.radius; }
+        set { transform.position = value + Vector3.up * sphereCollider.radius; }
+    }
+
     SphereCollider sphereCollider;
 
     Vector3 previousPosition;
+
+    //Eventos
+    public event Action OnOutOfField;
 
 	void Awake () {
         sphereCollider = GetComponent<SphereCollider>();
@@ -22,17 +32,21 @@ public class Ball : MonoBehaviour {
 	
 	void Update () {
 
+        //Limitar la velocidad
+        velocity = Vector3.ClampMagnitude(velocity, 20f);
+
         //Recopilar datos del suelo
-        RaycastHit hit;
-        //bool thereIsFloor = Physics.SphereCast(transform.position, sphereCollider.radius * 0.999f, Vector3.down, out hit, 10f, floorLayerMask);
-        bool thereIsFloor = Physics.Raycast(transform.position + Vector3.up * sphereCollider.radius, Vector3.down, out hit, 10f, floorLayerMask);
+        //RaycastHit hit; bool thereIsFloor = Physics.Raycast(transform.position + Vector3.up * sphereCollider.radius, Vector3.down, out hit, 10f, floorLayerMask);
+        RaycastHit sphereHit; bool thereIsFloor = Physics.SphereCast(transform.position + Vector3.up * sphereCollider.radius * 2f, sphereCollider.radius, Vector3.down, out sphereHit, 10f, floorLayerMask);
 
         //Si no hay suelo, caer
         if (thereIsFloor == false) {
-
+            Debug.Log("No hay suelo");
+            //Caer
             velocity = velocity + Vector3.down * Time.deltaTime * 16f;
 
             //Reiniciar la partida despues de 1 segundo
+            if (OnOutOfField != null) { OnOutOfField(); }
             StartCoroutine(FindObjectOfType<PlayManager>().RestartPlayAfter(1f));
         } 
         
@@ -43,10 +57,23 @@ public class Ball : MonoBehaviour {
             Deacelerate(2f);
 
             //Pegarse a el
-            transform.position = new Vector3(transform.position.x, hit.point.y + sphereCollider.radius, transform.position.z);
+            //transform.position = new Vector3(transform.position.x, hit.point.y + sphereCollider.radius, transform.position.z);
+            
+            //Si el suelo está mas arriba que la base de la pelota, pegarse a el
+            if(sphereHit.point.y > transform.position.y - sphereCollider.radius) {
+                Debug.Log("Suelo mas arriba");
+                transform.position = transform.position + Vector3.up * sphereCollider.radius * 2f + Vector3.down * sphereHit.distance;
+            } else if(Mathf.Approximately(sphereHit.point.y, transform.position.y - sphereCollider.radius)) {
+                Debug.Log("Suelo igual");
+            } else {
+                Debug.Log("Suelo abajo");
+                //Caer
+                velocity = velocity + Vector3.down * Time.deltaTime * 16f;
+            }
 
             //Darle velocidad de acuerdo a la pendiente
-            Vector3 velAdd = Vector3Util.NoY(hit.normal);
+            Vector3 velAdd = Vector3Util.NoY(sphereHit.normal);
+            //Vector3 velAdd = Vector3Util.NoY(hit.normal);
             velocity = velocity + velAdd * Time.deltaTime * 16f;
         }
 
@@ -102,6 +129,8 @@ public class Ball : MonoBehaviour {
             Gizmos.DrawRay(i.point, i.normal);
         }
     }
+
+    public static float ballRadius = 0.4457389f;
 
     List<HitInfo> hitInfos;
 

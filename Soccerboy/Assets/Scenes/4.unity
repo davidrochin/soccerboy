@@ -114,6 +114,48 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &184406679
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4883768245521296, guid: d41731be901faa54e9cd338e4673e4bc, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.013768673
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883768245521296, guid: d41731be901faa54e9cd338e4673e4bc, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883768245521296, guid: d41731be901faa54e9cd338e4673e4bc, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.97186375
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883768245521296, guid: d41731be901faa54e9cd338e4673e4bc, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883768245521296, guid: d41731be901faa54e9cd338e4673e4bc, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883768245521296, guid: d41731be901faa54e9cd338e4673e4bc, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883768245521296, guid: d41731be901faa54e9cd338e4673e4bc, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883768245521296, guid: d41731be901faa54e9cd338e4673e4bc, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: d41731be901faa54e9cd338e4673e4bc, type: 2}
+  m_IsPrefabParent: 0
 --- !u!4 &359587298 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4883768245521296, guid: 2ac30f87e58c59847b91a6ac440d0f4e,
@@ -478,7 +520,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &886774265
 Prefab:
@@ -861,5 +903,5 @@ Transform:
   - {fileID: 388129079}
   - {fileID: 1275197149}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

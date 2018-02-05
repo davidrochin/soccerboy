@@ -19,6 +19,10 @@ public class GoalText : MonoBehaviour {
 	}
 
     void Start() {
+
+        //Suscribirse al evento OnGoal de la portería
+        FindObjectOfType<Goal>().OnGoal += Show;
+
         Hide();
     }
 
