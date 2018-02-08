@@ -37,17 +37,18 @@ public class Ball : MonoBehaviour {
 
         //Recopilar datos del suelo
         //RaycastHit hit; bool thereIsFloor = Physics.Raycast(transform.position + Vector3.up * sphereCollider.radius, Vector3.down, out hit, 10f, floorLayerMask);
-        RaycastHit sphereHit; bool thereIsFloor = Physics.SphereCast(transform.position + Vector3.up * sphereCollider.radius * 2f, sphereCollider.radius, Vector3.down, out sphereHit, 10f, floorLayerMask);
+        RaycastHit sphereHit; bool thereIsFloor = Physics.SphereCast(transform.position + Vector3.up * sphereCollider.radius * 2f, sphereCollider.radius, Vector3.down, out sphereHit, sphereCollider.radius * 2f, floorLayerMask);
+
+        //Revisar si la pelota se cayó del campo
+        if(transform.position.y < -1f) {
+            if (OnOutOfField != null) { OnOutOfField(); }
+        }
 
         //Si no hay suelo, caer
         if (thereIsFloor == false) {
             Debug.Log("No hay suelo");
             //Caer
             velocity = velocity + Vector3.down * Time.deltaTime * 16f;
-
-            //Reiniciar la partida despues de 1 segundo
-            if (OnOutOfField != null) { OnOutOfField(); }
-            StartCoroutine(FindObjectOfType<PlayManager>().RestartPlayAfter(1f));
         } 
         
         //Si hay suelo

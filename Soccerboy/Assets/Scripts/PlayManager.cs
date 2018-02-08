@@ -43,6 +43,7 @@ public class PlayManager : MonoBehaviour {
     void Start() {
 
         ball = FindObjectOfType<Ball>();
+        ball.OnOutOfField += RestartPlay;
 
     }
 
