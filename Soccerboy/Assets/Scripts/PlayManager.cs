@@ -45,6 +45,8 @@ public class PlayManager : MonoBehaviour {
         ball = FindObjectOfType<Ball>();
         ball.OnOutOfField += RestartPlay;
 
+        Time.maximumDeltaTime = 0.0333333333f;
+
     }
 
     void Update () {

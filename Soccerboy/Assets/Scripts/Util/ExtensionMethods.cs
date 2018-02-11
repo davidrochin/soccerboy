@@ -8,7 +8,4 @@ public static class ExtensionMethods {
         return new Vector3(vector.x, 0f, vector.z);
     }
 
-    public static Vector3 InvertedY(this Vector3 vector) {
-        return new Vector3(vector.x, -vector.y, vector.z);
-    }
 }

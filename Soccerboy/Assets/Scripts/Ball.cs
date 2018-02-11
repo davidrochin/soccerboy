@@ -46,7 +46,7 @@ public class Ball : MonoBehaviour {
         Deacelerate(2f);
 
         //Caer
-        Fall(16f);
+        //Fall(16f);
 
         //Moverse de acuerdo a la velocidad
         transform.position = transform.position + velocity * Time.deltaTime;
@@ -58,15 +58,19 @@ public class Ball : MonoBehaviour {
         //Si hay suelo
         if (thereIsFloor) {
 
-            //Quitar la velocidad en Y
-            velocity = new Vector3(velocity.x, 0f, velocity.z);
-
-            //Darle velocidad de acuerdo a la pendiente
-            Vector3 velAdd = Vector3.Cross(sphereHit.normal, Quaternion.Euler(0f, -90f, 0f) * sphereHit.normal.NoY());
-            velocity = velocity + velAdd * Time.deltaTime * 16f;
+            //Darle velocidad de acuerdo a la pendiente (si hay pendiente)
+            if (!Mathf.Approximately(Vector3.Angle(Vector3.up, sphereHit.normal), 0f)) {
+                hitInfos.Add(new HitInfo(sphereHit.point, sphereHit.normal));
+                Vector3 velAdd = Vector3.Cross(sphereHit.normal, Quaternion.Euler(0f, -90f, 0f) * sphereHit.normal.NoY()).normalized;
+                pendNorm = velAdd;
+                velocity = velocity + velAdd * Time.deltaTime * 16f;
+            } else {
+                velocity = new Vector3(velocity.x, 0f, velocity.z);
+            }
 
             transform.position = castStart + Vector3.down * sphereHit.distance;
-
+        } else {
+            Fall(16f);
         }
 
         //Manejar colisión
@@ -116,7 +120,6 @@ public class Ball : MonoBehaviour {
     }
 
     Vector3 pendNorm;
-    Vector3 pendPos;
 
     private void OnDrawGizmos() {
         //Dibujar los HitInfo
@@ -125,7 +128,11 @@ public class Ball : MonoBehaviour {
             Gizmos.DrawRay(i.point, i.normal);
         }
 
-        Gizmos.DrawRay(pendPos, pendNorm);
+        Gizmos.DrawRay(bottom, pendNorm);
+
+        //Dibujar la siguiente posicion de la bola
+        //Gizmos.DrawSphere(transform.position + velocity * Time.deltaTime * 4f, sphereCollider.radius);
+
     }
 
     public static float ballRadius = 0.4457389f;
