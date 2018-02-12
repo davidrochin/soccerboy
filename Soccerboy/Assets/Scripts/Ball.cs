@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class Ball : MonoBehaviour {
 
+    public bool frozen = true;
+
     public Vector3 velocity;
     public LayerMask floorLayerMask;
     public LayerMask wallLayerMask;
@@ -22,7 +24,9 @@ public class Ball : MonoBehaviour {
     Vector3 previousPosition;
 
     //Eventos
-    public event Action OnOutOfField;
+    public event Action OnOutOfField, OnSlope;
+
+    #region Monobehaviours
 
     void Awake() {
         sphereCollider = GetComponent<SphereCollider>();
@@ -33,6 +37,31 @@ public class Ball : MonoBehaviour {
     }
 
     void Update() {
+        if (!frozen) {
+            Simulate();
+        }
+    }
+
+    Vector3 pendNorm;
+    void OnDrawGizmos() {
+        //Dibujar los HitInfo
+        Gizmos.color = Color.red;
+        foreach (HitInfo i in hitInfos) {
+            Gizmos.DrawRay(i.point, i.normal);
+        }
+
+        Gizmos.DrawRay(bottom, pendNorm);
+
+        //Dibujar la siguiente posicion de la bola
+        //Gizmos.DrawSphere(transform.position + velocity * Time.deltaTime * 4f, sphereCollider.radius);
+
+    }
+
+    #endregion
+
+    #region Procedimientos Privados
+
+    void Simulate() {
 
         //Limitar la velocidad
         velocity = Vector3.ClampMagnitude(velocity, 20f);
@@ -44,9 +73,6 @@ public class Ball : MonoBehaviour {
 
         //Disminuir la velocidad
         Deacelerate(2f);
-
-        //Caer
-        //Fall(16f);
 
         //Moverse de acuerdo a la velocidad
         transform.position = transform.position + velocity * Time.deltaTime;
@@ -60,16 +86,25 @@ public class Ball : MonoBehaviour {
 
             //Darle velocidad de acuerdo a la pendiente (si hay pendiente)
             if (!Mathf.Approximately(Vector3.Angle(Vector3.up, sphereHit.normal), 0f)) {
-                hitInfos.Add(new HitInfo(sphereHit.point, sphereHit.normal));
+
+                //hitInfos.Add(new HitInfo(sphereHit.point, sphereHit.normal));
                 Vector3 velAdd = Vector3.Cross(sphereHit.normal, Quaternion.Euler(0f, -90f, 0f) * sphereHit.normal.NoY()).normalized;
+
+                //Darle mas velocidad si la pendiente es mas inclinada
+                velAdd = velAdd * Mathf.InverseLerp(90f, 180f, Vector3.Angle(Vector3.up, velAdd));
+
+                Debug.Log(Vector3.Angle(Vector3.up, velAdd) + ", " + Mathf.InverseLerp(90f, 180f, Vector3.Angle(Vector3.up, velAdd)));
+
                 pendNorm = velAdd;
-                velocity = velocity + velAdd * Time.deltaTime * 16f;
+                velocity = velocity + velAdd * Time.deltaTime * 64f;
             } else {
                 velocity = new Vector3(velocity.x, 0f, velocity.z);
             }
 
             transform.position = castStart + Vector3.down * sphereHit.distance;
         } else {
+
+            //Caer
             Fall(16f);
         }
 
@@ -105,6 +140,10 @@ public class Ball : MonoBehaviour {
 
     }
 
+    #endregion
+
+    #region Procedimientos Públicos
+
     public void AddForce(Vector3 force) {
         velocity = velocity + force;
     }
@@ -119,21 +158,7 @@ public class Ball : MonoBehaviour {
         velocity = velocity + Vector3.down * Time.deltaTime * factor;
     }
 
-    Vector3 pendNorm;
-
-    private void OnDrawGizmos() {
-        //Dibujar los HitInfo
-        Gizmos.color = Color.red;
-        foreach (HitInfo i in hitInfos) {
-            Gizmos.DrawRay(i.point, i.normal);
-        }
-
-        Gizmos.DrawRay(bottom, pendNorm);
-
-        //Dibujar la siguiente posicion de la bola
-        //Gizmos.DrawSphere(transform.position + velocity * Time.deltaTime * 4f, sphereCollider.radius);
-
-    }
+    #endregion
 
     public static float ballRadius = 0.4457389f;
 
