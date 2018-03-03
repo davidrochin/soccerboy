@@ -202,7 +202,7 @@ MonoBehaviour:
       rotation: {x: 0, y: 90, z: 0}
       skin: 0
       config: 0
-    - type: 1
+    - type: 5
       position: {x: 4, y: 0, z: -4}
       rotation: {x: 0, y: -45, z: 0}
       skin: 0

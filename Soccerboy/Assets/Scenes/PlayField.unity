@@ -231,7 +231,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1312425624369234, guid: 445ccf9c6cf194f49b3a70d6b8e6cca8, type: 2}
       propertyPath: m_Name
-      value: CuvedRamp
+      value: CurvedRamp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 445ccf9c6cf194f49b3a70d6b8e6cca8, type: 2}
