@@ -21,5 +21,6 @@ public class BallSpawner : MonoBehaviour {
         //Dibujar el lugar donde va a aparecer la pelota
         Gizmos.color = new Color(1f, 1f, 1f, 0.5f);
         Gizmos.DrawSphere(transform.position + Vector3.up * Ball.ballRadius, Ball.ballRadius);
+
     }
 }

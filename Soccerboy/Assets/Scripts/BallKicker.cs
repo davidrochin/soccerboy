@@ -68,7 +68,7 @@ public class BallKicker : MonoBehaviour {
             launchArrow.SetActive(false);
         }
 
-        //Revisar si se levantó el clic de la pantalla
+        //Revisar si se levantó el clic de la pantalla y patear la pelota
         if (Input.GetMouseButtonUp(0)) {
             touchFinalDelta = TouchUtil.TouchOnPlane(launcherPlane) - startingTouchPos;
             Launch(touchFinalDelta.normalized, Mathf.Clamp(touchFinalDelta.magnitude, 0f, maxForce));
@@ -79,6 +79,7 @@ public class BallKicker : MonoBehaviour {
 
     public void Launch(Vector3 direction, float force) {
         if (OnKick != null) { OnKick(); }
+        ball.frozen = false;
         ball.velocity = direction * force * forceMultiplier;
         
     }

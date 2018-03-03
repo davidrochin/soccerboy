@@ -6,79 +6,107 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class Ball : MonoBehaviour {
 
+    public bool frozen = true;
+
     public Vector3 velocity;
     public LayerMask floorLayerMask;
     public LayerMask wallLayerMask;
 
-    [HideInInspector] public Vector3 bottom {
+    [HideInInspector]
+    public Vector3 bottom {
         get { return transform.position + Vector3.down * sphereCollider.radius; }
         set { transform.position = value + Vector3.up * sphereCollider.radius; }
     }
+    [HideInInspector] public bool launched;
 
     SphereCollider sphereCollider;
 
     Vector3 previousPosition;
 
     //Eventos
-    public event Action OnOutOfField;
+    public event Action OnOutOfField, OnSlope;
 
-	void Awake () {
+    #region Monobehaviours
+
+    void Awake() {
         sphereCollider = GetComponent<SphereCollider>();
 
         previousPosition = transform.position;
 
         hitInfos = new List<HitInfo>();
-	}
-	
-	void Update () {
+    }
+
+    void Update() {
+        if (!frozen) {
+            Simulate();
+        }
+    }
+
+    Vector3 pendNorm;
+    void OnDrawGizmos() {
+        //Dibujar los HitInfo
+        Gizmos.color = Color.red;
+        foreach (HitInfo i in hitInfos) {
+            Gizmos.DrawRay(i.point, i.normal);
+        }
+
+        Gizmos.DrawRay(bottom, pendNorm);
+
+        //Dibujar la siguiente posicion de la bola
+        //Gizmos.DrawSphere(transform.position + velocity * Time.deltaTime * 4f, sphereCollider.radius);
+
+    }
+
+    #endregion
+
+    #region Procedimientos Privados
+
+    void Simulate() {
 
         //Limitar la velocidad
         velocity = Vector3.ClampMagnitude(velocity, 20f);
 
-        //Recopilar datos del suelo
-        //RaycastHit hit; bool thereIsFloor = Physics.Raycast(transform.position + Vector3.up * sphereCollider.radius, Vector3.down, out hit, 10f, floorLayerMask);
-        RaycastHit sphereHit; bool thereIsFloor = Physics.SphereCast(transform.position + Vector3.up * sphereCollider.radius * 2f, sphereCollider.radius, Vector3.down, out sphereHit, 10f, floorLayerMask);
-
-        //Si no hay suelo, caer
-        if (thereIsFloor == false) {
-            Debug.Log("No hay suelo");
-            //Caer
-            velocity = velocity + Vector3.down * Time.deltaTime * 16f;
-
-            //Reiniciar la partida despues de 1 segundo
+        //Revisar si la pelota se cayó del campo
+        if (transform.position.y < -1f) {
             if (OnOutOfField != null) { OnOutOfField(); }
-            StartCoroutine(FindObjectOfType<PlayManager>().RestartPlayAfter(1f));
-        } 
-        
-        //Si hay suelo
-        else {
-
-            //Disminuir la velocidad
-            Deacelerate(2f);
-
-            //Pegarse a el
-            //transform.position = new Vector3(transform.position.x, hit.point.y + sphereCollider.radius, transform.position.z);
-            
-            //Si el suelo está mas arriba que la base de la pelota, pegarse a el
-            if(sphereHit.point.y > transform.position.y - sphereCollider.radius) {
-                Debug.Log("Suelo mas arriba");
-                transform.position = transform.position + Vector3.up * sphereCollider.radius * 2f + Vector3.down * sphereHit.distance;
-            } else if(Mathf.Approximately(sphereHit.point.y, transform.position.y - sphereCollider.radius)) {
-                Debug.Log("Suelo igual");
-            } else {
-                Debug.Log("Suelo abajo");
-                //Caer
-                velocity = velocity + Vector3.down * Time.deltaTime * 16f;
-            }
-
-            //Darle velocidad de acuerdo a la pendiente
-            Vector3 velAdd = Vector3Util.NoY(sphereHit.normal);
-            //Vector3 velAdd = Vector3Util.NoY(hit.normal);
-            velocity = velocity + velAdd * Time.deltaTime * 16f;
         }
+
+        //Disminuir la velocidad
+        Deacelerate(2f);
 
         //Moverse de acuerdo a la velocidad
         transform.position = transform.position + velocity * Time.deltaTime;
+
+        //Recopilar datos del suelo
+        RaycastHit sphereHit; Vector3 castStart = transform.position + Vector3.up * sphereCollider.radius * 2f;
+        bool thereIsFloor = Physics.SphereCast(castStart, sphereCollider.radius, Vector3.down, out sphereHit, sphereCollider.radius * 2f, floorLayerMask);
+
+        //Si hay suelo
+        if (thereIsFloor) {
+
+            //Darle velocidad de acuerdo a la pendiente (si hay pendiente)
+            if (!Mathf.Approximately(Vector3.Angle(Vector3.up, sphereHit.normal), 0f)) {
+
+                //hitInfos.Add(new HitInfo(sphereHit.point, sphereHit.normal));
+                Vector3 velAdd = Vector3.Cross(sphereHit.normal, Quaternion.Euler(0f, -90f, 0f) * sphereHit.normal.NoY()).normalized;
+
+                //Darle mas velocidad si la pendiente es mas inclinada
+                velAdd = velAdd * Mathf.InverseLerp(90f, 180f, Vector3.Angle(Vector3.up, velAdd));
+
+                Debug.Log(Vector3.Angle(Vector3.up, velAdd) + ", " + Mathf.InverseLerp(90f, 180f, Vector3.Angle(Vector3.up, velAdd)));
+
+                pendNorm = velAdd;
+                velocity = velocity + velAdd * Time.deltaTime * 64f;
+            } else {
+                velocity = new Vector3(velocity.x, 0f, velocity.z);
+            }
+
+            transform.position = castStart + Vector3.down * sphereHit.distance;
+        } else {
+
+            //Caer
+            Fall(16f);
+        }
 
         //Manejar colisión
         ManageCollision();
@@ -112,6 +140,10 @@ public class Ball : MonoBehaviour {
 
     }
 
+    #endregion
+
+    #region Procedimientos Públicos
+
     public void AddForce(Vector3 force) {
         velocity = velocity + force;
     }
@@ -122,13 +154,11 @@ public class Ball : MonoBehaviour {
         velocity = velocity.normalized * newMagnitude;
     }
 
-    private void OnDrawGizmos() {
-        //Dibujar los HitInfo
-        Gizmos.color = Color.red;
-        foreach (HitInfo i in hitInfos) {
-            Gizmos.DrawRay(i.point, i.normal);
-        }
+    public void Fall(float factor) {
+        velocity = velocity + Vector3.down * Time.deltaTime * factor;
     }
+
+    #endregion
 
     public static float ballRadius = 0.4457389f;
 
