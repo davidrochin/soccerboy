@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Field {
 
     public int template;
@@ -14,6 +15,7 @@ public class Field {
 
 }
 
+[System.Serializable]
 public class FieldElement {
 
     public Type type;
@@ -37,3 +39,21 @@ public class FieldElement {
 
 }
 
+/// <summary>
+/// De qué manera debería ser cargado el campo.
+/// </summary>
+public enum FieldLoadingMode {
+	/// <summary>
+	/// El jugador está probando si su propio campo es superable.
+	/// </summary>
+	UserTesting,
+	/// <summary>
+	/// El jugador está jugando en el campo de otra persona.
+	/// </summary>
+	Attack,
+	/// <summary>
+	/// Reservado para propósitos de debugging. NO USAR.
+	/// </summary>
+	// TODO: Eliminar antes del stage Beta
+	InternalDebug
+}
