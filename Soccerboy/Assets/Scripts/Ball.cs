@@ -36,9 +36,10 @@ public class Ball : MonoBehaviour {
         hitInfos = new List<HitInfo>();
     }
 
-    void Update() {
+    void FixedUpdate() {
         if (!frozen) {
-            Simulate();
+            ManageFloorCollision();
+            ManageWallCollision();
         }
     }
 
@@ -61,7 +62,7 @@ public class Ball : MonoBehaviour {
 
     #region Procedimientos Privados
 
-    void Simulate() {
+    void ManageFloorCollision() {
 
         //Limitar la velocidad
         velocity = Vector3.ClampMagnitude(velocity, 20f);
@@ -72,10 +73,12 @@ public class Ball : MonoBehaviour {
         }
 
         //Disminuir la velocidad
-        Deacelerate(2f);
+        float newMagnitude = velocity.magnitude - 0.04f;
+        newMagnitude = Mathf.Clamp(newMagnitude, 0f, float.MaxValue);
+        velocity = velocity.normalized * newMagnitude;
 
         //Moverse de acuerdo a la velocidad
-        transform.position = transform.position + velocity * Time.deltaTime;
+        transform.position = transform.position + velocity * 0.02f;
 
         //Recopilar datos del suelo
         RaycastHit sphereHit; Vector3 castStart = transform.position + Vector3.up * sphereCollider.radius * 2f;
@@ -96,26 +99,27 @@ public class Ball : MonoBehaviour {
                 Debug.Log(Vector3.Angle(Vector3.up, velAdd) + ", " + Mathf.InverseLerp(90f, 180f, Vector3.Angle(Vector3.up, velAdd)));
 
                 pendNorm = velAdd;
-                velocity = velocity + velAdd * Time.deltaTime * 64f;
+                velocity = velocity + velAdd * 1f;
             } else {
                 velocity = new Vector3(velocity.x, 0f, velocity.z);
             }
 
+            //Poner la pelota en el suelo
+            Vector3 tmp = transform.position;
             transform.position = castStart + Vector3.down * sphereHit.distance;
+
+            //Darle la velocidad que se movió debido a posicionamiento en el suelo (para rampear)
+            velocity += (transform.position - tmp) * 16f;
+
         } else {
 
             //Caer
-            Fall(16f);
+            velocity = velocity + Vector3.down * 0.5f;
         }
 
-        //Manejar colisión
-        ManageCollision();
-
-        //Guardar esta posicion como la ultima para el siguiente frame
-        previousPosition = transform.position;
     }
 
-    void ManageCollision() {
+    void ManageWallCollision() {
 
         //Hacer el SphereCast desde la posición previa hasta la actual
         Vector3 delta = transform.position - previousPosition;
@@ -138,6 +142,8 @@ public class Ball : MonoBehaviour {
             transform.position = hit.point + hit.normal * sphereCollider.radius;
         }
 
+        //Guardar esta posicion como la ultima para el siguiente frame
+        previousPosition = transform.position;
     }
 
     #endregion

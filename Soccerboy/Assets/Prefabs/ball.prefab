@@ -128,13 +128,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a0fc2039e114440b613a53ab1a3797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: {x: 0, y: 0, z: 0}
+  frozen: 1
+  velocity: {x: 1, y: 0, z: 0}
   floorLayerMask:
     serializedVersion: 2
     m_Bits: 1024
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 6144
+  launched: 0
 --- !u!135 &135788753467662700
 SphereCollider:
   m_ObjectHideFlags: 1
