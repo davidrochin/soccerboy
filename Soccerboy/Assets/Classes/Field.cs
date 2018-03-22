@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Field {
+[CreateAssetMenu(fileName = "field", menuName = "Fields/Field")]
+public class Field : ScriptableObject {
 
     // TODO: Este entero necesita cambiarse. Que ahora sea un objeto de tipo FieldTemplate
     public int template;

@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FieldTemplate {
+[System.Serializable]
+[CreateAssetMenu(fileName = "template", menuName = "Fields/Template")]
+public class FieldTemplate : ScriptableObject {
 
     /// <summary>
     /// La lista de bloques por los cuales está conformado esta plantilla de campo.
     /// </summary>
-    public List<FieldBlock> blocks;
+    public FieldBlock[] blocks;
 
     /// <summary>
     /// Los ajustes que se le deberán hacer a la cámara al cargar un campo con esta plantilla.
