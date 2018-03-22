@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Field {
 
+    // TODO: Este entero necesita cambiarse. Que ahora sea un objeto de tipo FieldTemplate
     public int template;
     public FieldElement[] fieldElements; //(posiblemente una List nos sea más 
                                          //conveniente del lado del cliente).
@@ -13,6 +14,7 @@ public class Field {
 
     public Vector3 ballSpawn;
 
+    public Vector3 cameraPosition;
 }
 
 [System.Serializable]
