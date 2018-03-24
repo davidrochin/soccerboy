@@ -54,6 +54,10 @@ public enum FieldLoadingMode {
 	/// El jugador está jugando en el campo de otra persona.
 	/// </summary>
 	Attack,
+    /// <summary>
+	/// El jugador está abriendo su campo para editarlo.
+	/// </summary>
+    Edit,
 	/// <summary>
 	/// Reservado para propósitos de debugging. NO USAR.
 	/// </summary>

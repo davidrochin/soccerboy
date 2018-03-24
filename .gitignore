@@ -1,3 +1,4 @@
 # OpenDocument Graphics file
 *.odg
 *.odg#
+/.vs
