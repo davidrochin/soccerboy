@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-[CreateAssetMenu(fileName = "template", menuName = "Fields/Template")]
+[CreateAssetMenu(fileName = "FieldTemplate", menuName = "Fields/Template")]
 public class FieldTemplate : ScriptableObject {
 
     /// <summary>

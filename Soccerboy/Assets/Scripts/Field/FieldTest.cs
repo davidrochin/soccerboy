@@ -10,40 +10,29 @@ public class FieldTest : MonoBehaviour {
     public void Awake()
     {
         // Campo de prueba
-        testField = new Field()
-        {
-            template = 1,
-
-            goalPosition = new Vector3(4.11f, 0, 9.344f),
-            goalRotation = Vector3.zero,
-
-            ballSpawn = new Vector3(-4.01f, 0, -2.49f),
-
-            fieldElements = new FieldElement[] {
-            new FieldElement() {
-                type = FieldElement.Type.Accelerator,
-                position = new Vector3(4, 0)
-            },
-            new FieldElement() {
-                type = FieldElement.Type.FieldBarrier,
-                position = new Vector3(-4, 0),
-                rotation = new Vector3(0, 90)
-            },
-            new FieldElement() {
-                type = FieldElement.Type.SmallBarrier,
-                position = new Vector3(4, 0, -4),
-                rotation = new Vector3(0, -45)
-            }
-        }
-        };
+        if (testField == null)
+            Debug.LogError("Capo, tenés que colocar un Field en el campo \"Test Field\" del editor.");
     }
 
     void OnGUI() {
-		if (GUILayout.Button ("Cargar campo de prueba")) {
-			GameManager.StartField (testField, FieldLoadingMode.UserTesting);
-		} else if (GUILayout.Button ("Prueba de manejo de errores (FieldLoadingMode desconocido)")) {
-			GameManager.StartField (testField, FieldLoadingMode.InternalDebug);
+		if (GUILayout.Button ("Cargar el campo de prueba")) {
+			FieldManager.Load (testField, FieldLoadingMode.UserTesting);
+		} else if (GUILayout.Button ("Crear un campo desde el código")) {
+            FieldManager.Load (TestField(), FieldLoadingMode.UserTesting);
 		}
 	}
+
+    Field TestField() {
+        var field = new Field() {
+            template = FieldFactory.LoadTemplate("Rounded3by3"),
+            fieldElements = new FieldElement[] {
+                FieldFactory.LoadElement(FieldElement.Type.SmallBarrier),
+                FieldFactory.LoadGoal(),
+                FieldFactory.LoadBallSpawner()
+            }
+        };
+
+        return field;
+    }
 
 }

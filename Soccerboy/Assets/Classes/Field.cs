@@ -6,29 +6,46 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "field", menuName = "Fields/Field")]
 public class Field : ScriptableObject {
 
-    // TODO: Este entero necesita cambiarse. Que ahora sea un objeto de tipo FieldTemplate
-    public int template;
+    public FieldTemplate template;
     public FieldElement[] fieldElements; //(posiblemente una List nos sea más 
                                          //conveniente del lado del cliente).
-    public Vector3 goalPosition;
-    public Vector3 goalRotation;
-
-    public Vector3 ballSpawn;
-
-    public Vector3 cameraPosition;
 }
 
 [System.Serializable]
-public class FieldElement {
+[CreateAssetMenu(fileName = "element", menuName = "Fields/FieldElement")]
+public class FieldElement : ScriptableObject {
 
+    /// <summary>
+    /// El tipo de elemento.
+    /// </summary>
     public Type type;
 
+    /// <summary>
+    /// El prefab del elemento.
+    /// </summary>
+    public GameObject prefab;
+
+    /// <summary>
+    /// La posición del elemento (relativa al campo).
+    /// </summary>
     public Vector3 position;
+    /// <summary>
+    /// La rotación del elemento (relativa al campo).
+    /// </summary>
     public Vector3 rotation;
 
-    public int skin;
+    /// <summary>
+    /// El skin del elemento.
+    /// </summary>
+    public Skin skin;
+    /// <summary>
+    /// Reservado. No usar.
+    /// </summary>
     public int config;
 
+    /// <summary>
+    /// Describe el tipo de elemento.
+    /// </summary>
     public enum Type {
         FieldBarrier,
         SmallBarrier,
@@ -37,13 +54,16 @@ public class FieldElement {
         Blower,
         CurvedRamp,
         Accelerator,
-        Pyramid
+        Pyramid,
+        
+        Goal,
+        BallSpawner
     }
 
 }
 
 /// <summary>
-/// De qué manera debería ser cargado el campo.
+/// Define de qué manera debería ser cargado el campo.
 /// </summary>
 public enum FieldLoadingMode {
 	/// <summary>
@@ -59,7 +79,7 @@ public enum FieldLoadingMode {
 	/// </summary>
     Edit,
 	/// <summary>
-	/// Reservado para propósitos de debugging. NO USAR.
+	/// Reservado. No usar.
 	/// </summary>
 	// TODO: Eliminar antes del stage Beta
 	InternalDebug

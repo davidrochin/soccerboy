@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9781c213005dbe145b3867f8a511a3c0, type: 3}
+  m_Name: TestField
+  m_EditorClassIdentifier: 
+  template: {fileID: 11400000, guid: a5356a8423f53dd4791348c52d7a9019, type: 2}
+  fieldElements:
+  - {fileID: 11400000, guid: 896c7f15d748d744fb4c3a61236106ec, type: 2}
+  - {fileID: 11400000, guid: 7665c29e94c00894badc772cf79cf51b, type: 2}
+  - {fileID: 11400000, guid: 6cd4ccf7b4807a74d9f3d751cd07bad5, type: 2}
