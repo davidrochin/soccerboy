@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Field {
+[CreateAssetMenu(fileName = "field", menuName = "Fields/Field")]
+public class Field : ScriptableObject {
 
+    // TODO: Este entero necesita cambiarse. Que ahora sea un objeto de tipo FieldTemplate
     public int template;
     public FieldElement[] fieldElements; //(posiblemente una List nos sea más 
                                          //conveniente del lado del cliente).
@@ -13,6 +15,7 @@ public class Field {
 
     public Vector3 ballSpawn;
 
+    public Vector3 cameraPosition;
 }
 
 [System.Serializable]
@@ -51,6 +54,10 @@ public enum FieldLoadingMode {
 	/// El jugador está jugando en el campo de otra persona.
 	/// </summary>
 	Attack,
+    /// <summary>
+	/// El jugador está abriendo su campo para editarlo.
+	/// </summary>
+    Edit,
 	/// <summary>
 	/// Reservado para propósitos de debugging. NO USAR.
 	/// </summary>
