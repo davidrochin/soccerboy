@@ -60,5 +60,11 @@ public class InventoryTest : MonoBehaviour {
 	public void valore(){
 		texti.text = sb.value.ToString ();
 	}
+
+	public void actualizoValores(){
+		valore ();
+		drp.ClearOptions ();
+		drp.AddOptions(listainttolistaString ());
+	}
 		
 }
