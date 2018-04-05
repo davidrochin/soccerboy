@@ -1,0 +1,13 @@
+Aca se describe cual es el propósito de cada Scene.
+
+main: 
+Aca inicia el juego. Aquí deberian ir los Splashscreen, la pantalla de carga inicial, etc.
+
+menu:
+Esta sería para el menú principal del juego. No se debe de poder jugar una partida sobre esta escena.
+
+play:
+Para jugar campos de un jugador o de un NPC. No incluye jugar el campo propio.
+
+edit:
+Esta Scene tendria todo lo relacionado al editor de campos. Tambien se jugaría el campo propio para validación aca.
