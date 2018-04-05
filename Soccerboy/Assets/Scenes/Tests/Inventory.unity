@@ -2020,6 +2020,7 @@ GameObject:
   - component: {fileID: 1421648071}
   - component: {fileID: 1421648070}
   - component: {fileID: 1421648069}
+  - component: {fileID: 1421648072}
   m_Layer: 0
   m_Name: Script
   m_TagString: Untagged
@@ -2035,7 +2036,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1421648068}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< HEAD
+  m_Script: {fileID: 11500000, guid: 7439fa2efe5c65a42ae4a9bc56d86c7b, type: 3}
+=======
   m_Script: {fileID: 11500000, guid: 39260591240cb0a45becbc779d7e960d, type: 3}
+>>>>>>> 8d0df8504757e8972400901fd0d1c185fe642e84
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1421648070
@@ -2046,12 +2051,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 1421648068}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< HEAD
+  m_Script: {fileID: 11500000, guid: 7c81e2990dd389c4083c2b1533f5eeff, type: 3}
+=======
   m_Script: {fileID: 11500000, guid: 993c9298154f5594ea6c6db06ad4354e, type: 3}
+>>>>>>> 8d0df8504757e8972400901fd0d1c185fe642e84
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: 01000000020000000300000004000000
+  inventory: 
   items:
+  - ID: 0
+    GamePlayer_ID: 0
+    type: 0
+    nombre: Pelota Adidas
+    descripcion: Pelota especial de mayor resistencia al viento
   - ID: 1
+<<<<<<< HEAD
+    GamePlayer_ID: 0
+    type: 0
+    nombre: Camiseta del pipi
+    descripcion: Camiseta del pipi Romagnoli
+  - ID: 2
+    GamePlayer_ID: 0
+    type: 0
+    nombre: Botines de messi
+    descripcion: Botines de messi que otorgan velocidad extra
+  - ID: 3
+    GamePlayer_ID: 0
+    type: 0
+    nombre: Camiseta de cr7
+    descripcion: camiseta de ronaldo, otorga penales extra
+  - ID: 4
+    GamePlayer_ID: 0
+    type: 0
+    nombre: Medias soquetes
+    descripcion: Otorga mas fresquito en las piernas
+=======
     imagen: {fileID: 0}
     nombre: Pelota de oro
     descripcion: Pelota pateada por el mismisimo Messi
@@ -2067,6 +2102,7 @@ MonoBehaviour:
     imagen: {fileID: 0}
     nombre: Camiseta de San Lorenzo
     descripcion: Camiseta del Pipi Romagnoli
+>>>>>>> 8d0df8504757e8972400901fd0d1c185fe642e84
 --- !u!4 &1421648071
 Transform:
   m_ObjectHideFlags: 0
@@ -2080,6 +2116,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1421648072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1421648068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c03a45171832442a3deb6061c2598d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1433389326
 GameObject:
   m_ObjectHideFlags: 0

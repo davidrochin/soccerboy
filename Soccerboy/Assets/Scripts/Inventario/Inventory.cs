@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour {
-	
 
+
+	[HideInInspector]
 	public List<int> inventory = new List<int>();
 	public Item[] items;
 
@@ -19,7 +20,7 @@ public class Inventory : MonoBehaviour {
 	public int[] getMyIDS () { //devuelve un array de los ID de los item
 		return inventory.ToArray();
 	}
-
+		
 	public void addItemByID(int id){ //agrega un item al inventario por su id
 		inventory.Add(id);
 	}
@@ -46,8 +47,17 @@ public class Inventory : MonoBehaviour {
 [System.Serializable]
 public class Item{
 
+	public enum tipo
+	{
+		Player,
+		Obstacle,
+		Ramp
+	}
+
 	public int ID;
-	public Sprite imagen;
+	[HideInInspector]
+	public int GamePlayer_ID;
+	public tipo type;
 	public string nombre;
 	public string descripcion;
 
