@@ -294,7 +294,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.284
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -668,6 +668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0227ee7ed5af754fb5305f29d0e1609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadingBar: {fileID: 188954510}
 --- !u!4 &1120344134
 Transform:
   m_ObjectHideFlags: 0

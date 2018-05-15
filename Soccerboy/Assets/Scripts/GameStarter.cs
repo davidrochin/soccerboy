@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Este Script se debe de ejecutar justo despues de iniciar el juego.
@@ -11,8 +13,10 @@ using UnityEngine;
 
 public class GameStarter : MonoBehaviour {
 
+    public Slider loadingBar;
+
 	void Awake () {
-        
+
         //Si el jugador es nuevo, solicitar la creacion de un nuevo perfil y guardar su id y su pass
         if(PlayerPrefs.GetString("local_player_id", "null").Equals("null")) {
 
@@ -28,6 +32,12 @@ public class GameStarter : MonoBehaviour {
             Debug.Log(p);    
         });*/
 	}
+
+    void Update() {
+        loadingBar.value = loadingBar.value + 0.5f * Time.deltaTime;
+        if(loadingBar.value >= 1f) { SceneManager.LoadScene("menu"); }
+    }
+
 
     void RequestPlayerData() {
 
